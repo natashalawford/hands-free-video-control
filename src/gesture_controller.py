@@ -1,0 +1,1 @@
+# Handles webcam: hand and face detection
