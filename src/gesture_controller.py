@@ -123,6 +123,23 @@ def thumbs_up(hand_landmarks):
 # SKIP / REWIND
 def is_finger_pointing(hand_landmarks):
     # Check if the index finger is pointing up and the rest are down
+    middle_curled = hand_landmarks.landmark[MIDDLE_TIP].y > hand_landmarks.landmark[MIDDLE_BASE].y
+    ring_curled = hand_landmarks.landmark[RING_TIP].y > hand_landmarks.landmark[RING_BASE].y
+    pinky_curled = hand_landmarks.landmark[PINKY_TIP].y > hand_landmarks.landmark[PINKY_BASE].y
+
+    if middle_curled and ring_curled and pinky_curled:
+        tip_x = hand_landmarks.landmark[INDEX_TIP].x
+        base_x = hand_landmarks.landmark[INDEX_BASE].x
+
+        # IMPORTANT: Might need to be adjusted for different webcam orientations
+        # Tip to the right (from user's perspective, mirrored webcam)
+        if tip_x < base_x:
+            print("Pointing right detected: Skip foward")
+            return True
+        # Tip to the left
+        elif tip_x > base_x:
+            print("Pointing left detected: Skip backward")
+            return True
     
     
     return False

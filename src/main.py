@@ -65,25 +65,27 @@ def run_webcam():
                 # Trigger play/pause action here
                 last_time = current_time
 
-            # VOLUME UP / VOLUME DOWN gesture detection
-            elif (current_time - last_time) > COOLDOWN_TIME and \
-                gesture_controller.thumbs_up(hand_landmarks):
-                # Trigger volume up action here
-                last_time = current_time
-
-            
             # SPEED UP / SLOW DOWN gesture detection
             elif (current_time - last_time) > COOLDOWN_TIME and \
                 gesture_controller.is_peace_sign(hand_landmarks) :
                 # Trigger speed up / slow down action here
                 last_time = current_time
 
-            # SKIP gesture detection
+            # VOLUME UP / VOLUME DOWN gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.thumbs_up(hand_landmarks):
+                # Trigger volume up action here
+                last_time = current_time
 
+            # SKIP gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_finger_pointing(hand_landmarks):
+                # Trigger skip action here
+                last_time = current_time
 
 
         # Display the each frame:
-        cv2.imshow('Hands Free Video Control - Webcam Feed', frame)
+        cv2.imshow('Hands Free Video Control - Webcam Feed',  cv2.flip(frame, 1))
 
         # Break the loop / exit webcam when 'q' key is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
