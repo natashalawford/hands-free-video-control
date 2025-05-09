@@ -58,11 +58,18 @@ def run_webcam():
                     mp_drawing_styles.get_default_hand_connections_style()
                 )
 
+            # PAUSE/PLAY gesture detection
             if gesture_controller.is_open_palm(hand_landmarks) and \
                 (current_time - last_time) > COOLDOWN_TIME:
                 print("Open palm detected: triggering play/pause")
-                print(last_time)
                 # Trigger play/pause action here
+                last_time = current_time
+            
+            # SPEED UP gesture detection
+            elif gesture_controller.is_peace_sign(hand_landmarks) and \
+                (current_time - last_time) > COOLDOWN_TIME:
+                print("Peace sign detected: triggering speed up")
+                # Trigger speed up action here
                 last_time = current_time
 
         # Display the each frame:
