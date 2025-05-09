@@ -1,6 +1,6 @@
 # Handles webcam: hand and face detection
 
-from control import pause_play, skip_backward, skip_forward
+from control import pause_play, skip_backward, skip_forward, speed_up, slow_down
 
 #CONSTANTS:
 
@@ -74,11 +74,13 @@ def is_peace_sign(hand_landmarks):
 
     if index_up and middle_up and ring_down and pinky_down:
         print("Peace sign detected: triggering speed up")
+        speed_up()
         return True
     
     # The oppisite applies for the downward peace sign (Slow down detection)
     elif index_down and middle_down and not ring_down and not pinky_down and thumb_down:
         print("Downward peace sign detected: triggering slow down")
+        slow_down()
         return True
     
     return False

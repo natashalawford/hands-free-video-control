@@ -10,3 +10,9 @@ def skip_forward():
 
 def skip_backward():
     pyautogui.press('left')
+
+def speed_up():
+    pyautogui.press('+')
+
+def slow_down():
+    pyautogui.press('_')
