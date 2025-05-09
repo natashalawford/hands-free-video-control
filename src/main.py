@@ -72,6 +72,12 @@ def run_webcam():
                 # Trigger speed up action here
                 last_time = current_time
 
+            elif gesture_controller.is_downward_peace_sign(hand_landmarks) and \
+                (current_time - last_time) > COOLDOWN_TIME:
+                print("Downward peace sign detected: triggering slow down")
+                # Trigger slow down action here
+                last_time = current_time
+
         # Display the each frame:
         cv2.imshow('Hands Free Video Control - Webcam Feed', frame)
 
