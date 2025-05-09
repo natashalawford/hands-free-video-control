@@ -1,6 +1,7 @@
 # Handles webcam: hand and face detection
 
-from control import pause_play, skip_backward, skip_forward, speed_up, slow_down
+from control import pause_play, skip_backward, skip_forward, speed_up, slow_down,\
+    volume_up, volume_down
 
 #CONSTANTS:
 
@@ -122,9 +123,11 @@ def thumbs_up(hand_landmarks):
     if index_wrapped and middle_wrapped and ring_wrapped and pinky_wrapped:
         if thumb_up:
             print("Thumbs up detected: triggering volume up")
+            volume_up()
             return True
         elif thumb_tip_y > thumb_ip_y > thumb_mcp_y > thumb_base_y:
             print("Thumbs down detected: triggering volume down")
+            volume_down()
             return True
     return False
 

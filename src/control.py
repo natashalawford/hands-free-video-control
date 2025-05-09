@@ -16,3 +16,9 @@ def speed_up():
 
 def slow_down():
     pyautogui.press('_')
+
+def volume_up():
+    pyautogui.press('up')
+
+def volume_down():
+    pyautogui.press('down')
