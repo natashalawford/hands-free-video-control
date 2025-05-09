@@ -41,11 +41,12 @@ WRIST = 0
 def is_open_palm(hand_landmarks):
     fingers_up = 0
     finger_tips = [THUMB_TIP, INDEX_TIP, MIDDLE_TIP, RING_TIP, PINKY_TIP]
-    finger_bases = [THUMB_IP, INDEX_PIP, MIDDLE_PIP, RING_PIP, PINKY_PIP]
+    finger_middle = [THUMB_IP, INDEX_PIP, MIDDLE_PIP, RING_PIP, PINKY_PIP]
+    finger_bases = [THUMB_BASE, INDEX_BASE, MIDDLE_BASE, RING_BASE, PINKY_BASE]
 
-    for tip, base in zip(finger_tips, finger_bases):
+    for tip, middle, base in zip(finger_tips, finger_middle, finger_bases):
         # Check if the tip is above the base in y-coordinates
-        if hand_landmarks.landmark[tip].y < hand_landmarks.landmark[base].y:
+        if hand_landmarks.landmark[tip].y < hand_landmarks.landmark[middle].y and hand_landmarks.landmark[middle].y < hand_landmarks.landmark[base].y + 0.1:
             fingers_up += 1
 
     return fingers_up == 5
@@ -62,12 +63,15 @@ def is_peace_sign(hand_landmarks):
     ring_down = hand_landmarks.landmark[RING_TIP].y > hand_landmarks.landmark[RING_PIP].y
     pinky_down = hand_landmarks.landmark[PINKY_TIP].y > hand_landmarks.landmark[PINKY_PIP].y
 
+    # Check to make sure thumb is down for downward peace sign
+    thumb_down = hand_landmarks.landmark[THUMB_TIP].y > hand_landmarks.landmark[THUMB_IP].y > hand_landmarks.landmark[THUMB_BASE].y
+
     if index_up and middle_up and ring_down and pinky_down:
         print("Peace sign detected: triggering speed up")
         return True
     
     # The oppisite applies for the downward peace sign (Slow down detection)
-    elif index_down and middle_down and not ring_down and not pinky_down:
+    elif index_down and middle_down and not ring_down and not pinky_down and thumb_down:
         print("Downward peace sign detected: triggering slow down")
         return True
     
@@ -114,4 +118,11 @@ def thumbs_up(hand_landmarks):
         elif thumb_tip_y > thumb_ip_y > thumb_mcp_y > thumb_base_y:
             print("Thumbs down detected: triggering volume down")
             return True
+    return False
+
+# SKIP / REWIND
+def is_finger_pointing(hand_landmarks):
+    # Check if the index finger is pointing up and the rest are down
+    
+    
     return False

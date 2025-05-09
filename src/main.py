@@ -78,6 +78,9 @@ def run_webcam():
                 # Trigger speed up / slow down action here
                 last_time = current_time
 
+            # SKIP gesture detection
+
+
 
         # Display the each frame:
         cv2.imshow('Hands Free Video Control - Webcam Feed', frame)
