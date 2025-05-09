@@ -64,17 +64,18 @@ def run_webcam():
                 print("Open palm detected: triggering play/pause")
                 # Trigger play/pause action here
                 last_time = current_time
-            
-            # SPEED UP / SLOW DOWN gesture detection
-            elif (current_time - last_time) > COOLDOWN_TIME and \
-                gesture_controller.is_peace_sign(hand_landmarks) :
-                # Trigger speed up / slow down action here
-                last_time = current_time
 
             # VOLUME UP / VOLUME DOWN gesture detection
             elif (current_time - last_time) > COOLDOWN_TIME and \
                 gesture_controller.thumbs_up(hand_landmarks):
                 # Trigger volume up action here
+                last_time = current_time
+
+            
+            # SPEED UP / SLOW DOWN gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_peace_sign(hand_landmarks) :
+                # Trigger speed up / slow down action here
                 last_time = current_time
 
 
