@@ -80,18 +80,38 @@ def thumbs_up(hand_landmarks):
     thumb_tip_y = hand_landmarks.landmark[THUMB_TIP].y
     thumb_ip_y = hand_landmarks.landmark[THUMB_IP].y
     thumb_mcp_y = hand_landmarks.landmark[THUMB_MCP].y
-    thumb_up = thumb_tip_y < thumb_ip_y < thumb_mcp_y
+    thumb_base_y = hand_landmarks.landmark[THUMB_BASE].y
+    thumb_up = thumb_tip_y < thumb_ip_y < thumb_mcp_y < thumb_base_y
 
-    index_wrapped = hand_landmarks.landmark[INDEX_TIP].y > hand_landmarks.landmark[INDEX_PIP].y
-    middle_wrapped = hand_landmarks.landmark[MIDDLE_TIP].y > hand_landmarks.landmark[MIDDLE_PIP].y
-    ring_wrapped = hand_landmarks.landmark[RING_TIP].y > hand_landmarks.landmark[RING_PIP].y
-    pinky_wrapped = hand_landmarks.landmark[PINKY_TIP].y > hand_landmarks.landmark[PINKY_PIP].y
+    index_wrapped = (
+    hand_landmarks.landmark[INDEX_TIP].y >
+    hand_landmarks.landmark[INDEX_PIP].y >
+    hand_landmarks.landmark[INDEX_BASE].y
+    )
+
+    middle_wrapped = (
+        hand_landmarks.landmark[MIDDLE_TIP].y >
+        hand_landmarks.landmark[MIDDLE_PIP].y >
+        hand_landmarks.landmark[MIDDLE_BASE].y
+    )
+
+    ring_wrapped = (
+        hand_landmarks.landmark[RING_TIP].y >
+        hand_landmarks.landmark[RING_PIP].y >
+        hand_landmarks.landmark[RING_BASE].y
+    )
+
+    pinky_wrapped = (
+        hand_landmarks.landmark[PINKY_TIP].y >
+        hand_landmarks.landmark[PINKY_PIP].y >
+        hand_landmarks.landmark[PINKY_BASE].y
+    )
     
     if index_wrapped and middle_wrapped and ring_wrapped and pinky_wrapped:
         if thumb_up:
             print("Thumbs up detected: triggering volume up")
             return True
-        elif thumb_tip_y > thumb_ip_y > thumb_mcp_y:
+        elif thumb_tip_y > thumb_ip_y > thumb_mcp_y > thumb_base_y:
             print("Thumbs down detected: triggering volume down")
             return True
     return False
