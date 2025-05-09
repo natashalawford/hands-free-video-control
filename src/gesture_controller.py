@@ -28,7 +28,7 @@ def is_open_palm(hand_landmarks):
 
     return fingers_up == 5
 
-#SPEED UP / SLOW DOWN
+# SPEED UP / SLOW DOWN
 def is_peace_sign(hand_landmarks):
     # Check if the index and middle fingers are up and the rest are down
     index_up = hand_landmarks.landmark[INDEX_TIP].y < hand_landmarks.landmark[INDEX_BASE].y
@@ -45,4 +45,22 @@ def is_peace_sign(hand_landmarks):
         print("Downward peace sign detected: triggering slow down")
         return True
     
+    return False
+
+# VOLUME UP / VOLUME DOWN
+def thumbs_up(hand_landmarks):
+    # Check if the thumb is up and the rest are down
+    thumb_up = hand_landmarks.landmark[THUMB_TIP].y < hand_landmarks.landmark[THUMB_BASE].y
+    index_wrapped = hand_landmarks.landmark[INDEX_TIP].x > hand_landmarks.landmark[INDEX_BASE].x
+    middle_wrapped = hand_landmarks.landmark[MIDDLE_TIP].x > hand_landmarks.landmark[MIDDLE_BASE].x
+    ring_wrapped = hand_landmarks.landmark[RING_TIP].x > hand_landmarks.landmark[RING_BASE].x
+    pinky_wrapped = hand_landmarks.landmark[PINKY_TIP].x > hand_landmarks.landmark[PINKY_BASE].x
+
+    if index_wrapped and middle_wrapped and ring_wrapped and pinky_wrapped:
+        if thumb_up:
+            print("Thumbs up detected: triggering volume up")
+            return True
+        else:
+            print("Thumbs down detected: triggering volume down")
+            return True
     return False

@@ -71,6 +71,12 @@ def run_webcam():
                 # Trigger speed up / slow down action here
                 last_time = current_time
 
+            # VOLUME UP / VOLUME DOWN gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.thumbs_up(hand_landmarks):
+                # Trigger volume up action here
+                last_time = current_time
+
 
         # Display the each frame:
         cv2.imshow('Hands Free Video Control - Webcam Feed', frame)
