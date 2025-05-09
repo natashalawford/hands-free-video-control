@@ -15,6 +15,7 @@ MIDDLE_TIP = 12
 RING_TIP = 16
 PINKY_TIP = 20
 
+#PAUSE / PLAY
 def is_open_palm(hand_landmarks):
     fingers_up = 0
     finger_tips = [THUMB_TIP, INDEX_TIP, MIDDLE_TIP, RING_TIP, PINKY_TIP]
@@ -27,6 +28,7 @@ def is_open_palm(hand_landmarks):
 
     return fingers_up == 5
 
+#SPEED UP / SLOW DOWN
 def is_peace_sign(hand_landmarks):
     # Check if the index and middle fingers are up and the rest are down
     index_up = hand_landmarks.landmark[INDEX_TIP].y < hand_landmarks.landmark[INDEX_BASE].y
@@ -34,13 +36,13 @@ def is_peace_sign(hand_landmarks):
     ring_down = hand_landmarks.landmark[RING_TIP].y > hand_landmarks.landmark[RING_BASE].y
     pinky_down = hand_landmarks.landmark[PINKY_TIP].y > hand_landmarks.landmark[PINKY_BASE].y
 
-    return index_up and middle_up and ring_down and pinky_down
-
-def is_downward_peace_sign(hand_landmarks):
-    # Check if the index and middle fingers are up and the rest are down
-    index_up = hand_landmarks.landmark[INDEX_TIP].y > hand_landmarks.landmark[INDEX_BASE].y
-    middle_up = hand_landmarks.landmark[MIDDLE_TIP].y > hand_landmarks.landmark[MIDDLE_BASE].y
-    ring_down = hand_landmarks.landmark[RING_TIP].y < hand_landmarks.landmark[RING_BASE].y
-    pinky_down = hand_landmarks.landmark[PINKY_TIP].y < hand_landmarks.landmark[PINKY_BASE].y
-
-    return index_up and middle_up and ring_down and pinky_down
+    if index_up and middle_up and ring_down and pinky_down:
+        print("Peace sign detected: triggering speed up")
+        return True
+    
+    # The oppisite applies for the downward peace sign (Slow down detection)
+    elif not index_up and not middle_up and not ring_down and not pinky_down:
+        print("Downward peace sign detected: triggering slow down")
+        return True
+    
+    return False

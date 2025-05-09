@@ -59,24 +59,18 @@ def run_webcam():
                 )
 
             # PAUSE/PLAY gesture detection
-            if gesture_controller.is_open_palm(hand_landmarks) and \
-                (current_time - last_time) > COOLDOWN_TIME:
+            if (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_open_palm(hand_landmarks):
                 print("Open palm detected: triggering play/pause")
                 # Trigger play/pause action here
                 last_time = current_time
             
-            # SPEED UP gesture detection
-            elif gesture_controller.is_peace_sign(hand_landmarks) and \
-                (current_time - last_time) > COOLDOWN_TIME:
-                print("Peace sign detected: triggering speed up")
-                # Trigger speed up action here
+            # SPEED UP / SLOW DOWN gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_peace_sign(hand_landmarks) :
+                # Trigger speed up / slow down action here
                 last_time = current_time
 
-            elif gesture_controller.is_downward_peace_sign(hand_landmarks) and \
-                (current_time - last_time) > COOLDOWN_TIME:
-                print("Downward peace sign detected: triggering slow down")
-                # Trigger slow down action here
-                last_time = current_time
 
         # Display the each frame:
         cv2.imshow('Hands Free Video Control - Webcam Feed', frame)
