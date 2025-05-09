@@ -1,6 +1,7 @@
 # Handles webcam: hand and face detection
 
-from control import pause_play
+from control import pause_play, skip_backward, skip_forward
+
 #CONSTANTS:
 
 # Mediapipe allocated finger coordinates
@@ -140,10 +141,12 @@ def is_finger_pointing(hand_landmarks):
         # Tip to the right (from user's perspective, mirrored webcam)
         if tip_x < base_x:
             print("Pointing right detected: Skip foward")
+            skip_forward()
             return True
         # Tip to the left
         elif tip_x > base_x:
             print("Pointing left detected: Skip backward")
+            skip_backward()
             return True
     
     
