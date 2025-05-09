@@ -1,5 +1,6 @@
 # Handles webcam: hand and face detection
 
+from control import pause_play
 #CONSTANTS:
 
 # Mediapipe allocated finger coordinates
@@ -49,7 +50,11 @@ def is_open_palm(hand_landmarks):
         if hand_landmarks.landmark[tip].y < hand_landmarks.landmark[middle].y and hand_landmarks.landmark[middle].y < hand_landmarks.landmark[base].y + 0.1:
             fingers_up += 1
 
-    return fingers_up == 5
+    if fingers_up == 5:
+        print("Open palm detected: triggering pause/play")
+        pause_play()
+        return True
+    return False
 
 # SPEED UP / SLOW DOWN
 def is_peace_sign(hand_landmarks):
