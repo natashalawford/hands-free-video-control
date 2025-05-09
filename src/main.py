@@ -1,7 +1,13 @@
 # Entry point to run the app
 
+import sys
+import time
 import cv2
 import mediapipe as mp
+import gesture_controller
+
+# CONSTANTS
+COOLDOWN_TIME = 2  # seconds between gestures, prevents multiple triggers
 
 # Initialize MediaPipe Hands
 mp_hands = mp.solutions.hands
@@ -18,6 +24,7 @@ mp_drawing_styles = mp.solutions.drawing_styles
 def run_webcam():
     # Open a connection to the webcam
     cap = cv2.VideoCapture(0)
+    last_time = 0  # last time a gesture was detected
 
     if not cap.isOpened():
         print("Error: Could not open webcam")
@@ -35,21 +42,50 @@ def run_webcam():
         
         # Process the frame and detect a single hand
         results = hands.process(frame_rgb)
-
+        
         # Draw hand landmarks on the frame if hand is detected
+        
+        current_time = int(time.time())
+
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
                 mp_drawing.draw_landmarks(
                     frame,
                     hand_landmarks,
                     mp_hands.HAND_CONNECTIONS,
-                    #Add colours to different parts of the hand:
+                    # Add colours to different parts of the hand:
                     mp_drawing_styles.get_default_hand_landmarks_style(),
                     mp_drawing_styles.get_default_hand_connections_style()
                 )
 
+            # PAUSE/PLAY gesture detection
+            if (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_open_palm(hand_landmarks):
+                print("Open palm detected: triggering play/pause")
+                # Trigger play/pause action here
+                last_time = current_time
+
+            # SPEED UP / SLOW DOWN gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_peace_sign(hand_landmarks) :
+                # Trigger speed up / slow down action here
+                last_time = current_time
+
+            # VOLUME UP / VOLUME DOWN gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.thumbs_up(hand_landmarks):
+                # Trigger volume up action here
+                last_time = current_time
+
+            # SKIP gesture detection
+            elif (current_time - last_time) > COOLDOWN_TIME and \
+                gesture_controller.is_finger_pointing(hand_landmarks):
+                # Trigger skip action here
+                last_time = current_time
+
+
         # Display the each frame:
-        cv2.imshow('Hands Free Video Control - Webcam Feed', frame)
+        cv2.imshow('Hands Free Video Control - Webcam Feed',  cv2.flip(frame, 1))
 
         # Break the loop / exit webcam when 'q' key is pressed
         if cv2.waitKey(1) & 0xFF == ord('q'):
