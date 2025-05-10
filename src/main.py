@@ -61,7 +61,6 @@ def run_webcam():
             # PAUSE/PLAY gesture detection
             if (current_time - last_time) > COOLDOWN_TIME and \
                 gesture_controller.is_open_palm(hand_landmarks):
-                print("Open palm detected: triggering play/pause")
                 # Trigger play/pause action here
                 last_time = current_time
 
