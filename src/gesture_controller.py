@@ -47,6 +47,7 @@ def is_open_palm(hand_landmarks):
     finger_middle = [THUMB_IP, INDEX_PIP, MIDDLE_PIP, RING_PIP, PINKY_PIP]
     finger_bases = [THUMB_BASE, INDEX_BASE, MIDDLE_BASE, RING_BASE, PINKY_BASE]
 
+
     for tip, middle, base in zip(finger_tips, finger_middle, finger_bases):
         # Check if the tip is above the base in y-coordinates
         if hand_landmarks.landmark[tip].y < hand_landmarks.landmark[middle].y and hand_landmarks.landmark[middle].y < hand_landmarks.landmark[base].y + 0.1:
@@ -89,7 +90,7 @@ def is_peace_sign(hand_landmarks):
 # VOLUME UP / VOLUME DOWN
 def thumbs_up(hand_landmarks):
     # Check if the thumb is up and the rest  curled down
-        # Thumb is up (all joints descending in Y)
+    # Thumb is up (all joints descending in Y)
     thumb_tip_y = hand_landmarks.landmark[THUMB_TIP].y
     thumb_ip_y = hand_landmarks.landmark[THUMB_IP].y
     thumb_mcp_y = hand_landmarks.landmark[THUMB_MCP].y
@@ -120,12 +121,20 @@ def thumbs_up(hand_landmarks):
         hand_landmarks.landmark[PINKY_BASE].y
     )
     
-    if index_wrapped and middle_wrapped and ring_wrapped and pinky_wrapped:
+    # Check to see if knuckles are lined up on the x axis:
+    knuckles_aligned = (
+        abs(hand_landmarks.landmark[INDEX_PIP].x - hand_landmarks.landmark[MIDDLE_PIP].x) < 0.05 and
+        abs(hand_landmarks.landmark[MIDDLE_PIP].x - hand_landmarks.landmark[RING_PIP].x) < 0.5 and
+        abs(hand_landmarks.landmark[RING_PIP].x - hand_landmarks.landmark[PINKY_PIP].x) < 0.05
+    )
+    
+    if index_wrapped and middle_wrapped and ring_wrapped and pinky_wrapped and knuckles_aligned:
         if thumb_up:
             print("Thumbs up detected: triggering volume up")
             volume_up()
             return True
-        elif thumb_tip_y > thumb_ip_y > thumb_mcp_y > thumb_base_y:
+    elif not index_wrapped and not middle_wrapped and not ring_wrapped and not pinky_wrapped and knuckles_aligned:
+        if thumb_tip_y > thumb_ip_y > thumb_mcp_y > thumb_base_y:
             print("Thumbs down detected: triggering volume down")
             volume_down()
             return True
@@ -144,12 +153,12 @@ def is_finger_pointing(hand_landmarks):
         base_x = hand_landmarks.landmark[INDEX_BASE].x
 
         # IMPORTANT: Might need to be adjusted for different webcam orientations
-        # Tip to the right (from user's perspective, mirrored webcam)
+        # Tip to the right (from user's perspective, mirrored webcam), middle finger is to the left (wrapped)
         if tip_x < mid_x and mid_x < base_x and hand_landmarks.landmark[MIDDLE_PIP].x < hand_landmarks.landmark[MIDDLE_TIP].x:
             print("Pointing right detected: Skip foward")
             skip_forward()
             return True
-        # Tip to the left
+        # Tip to the left, middle finger is to the right (wrapped)
         elif tip_x > mid_x and mid_x > base_x and hand_landmarks.landmark[MIDDLE_PIP].x > hand_landmarks.landmark[MIDDLE_TIP].x:
             print("Pointing left detected: Skip backward")
             skip_backward()
