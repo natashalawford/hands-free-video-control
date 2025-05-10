@@ -140,16 +140,17 @@ def is_finger_pointing(hand_landmarks):
 
     if middle_curled and ring_curled and pinky_curled:
         tip_x = hand_landmarks.landmark[INDEX_TIP].x
+        mid_x = hand_landmarks.landmark[INDEX_PIP].x
         base_x = hand_landmarks.landmark[INDEX_BASE].x
 
         # IMPORTANT: Might need to be adjusted for different webcam orientations
         # Tip to the right (from user's perspective, mirrored webcam)
-        if tip_x < base_x:
+        if tip_x < mid_x and mid_x < base_x and hand_landmarks.landmark[MIDDLE_PIP].x < hand_landmarks.landmark[MIDDLE_TIP].x:
             print("Pointing right detected: Skip foward")
             skip_forward()
             return True
         # Tip to the left
-        elif tip_x > base_x:
+        elif tip_x > mid_x and mid_x > base_x and hand_landmarks.landmark[MIDDLE_PIP].x > hand_landmarks.landmark[MIDDLE_TIP].x:
             print("Pointing left detected: Skip backward")
             skip_backward()
             return True
