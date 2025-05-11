@@ -9,23 +9,23 @@ Perfect for those moments when you're cooking, cleaning, eating, or elbow-deep i
 As a student at McGill, I often watch lecture recordings on MyCourses (Brightspace), especially while multitasking, like cooking dinner, eating, cleaning, or taking notes. But whenever I wanted to pause or skip back in the lecture, I’d find myself scrambling with messy hands or running across the room to reach the keyboard.
 So I decided to build a hands-free controller that lets me (and other students) use simple gestures or voice commands to control playback, without ever needing to touch a laptop. My hope is that this tool will make multitasking a little more effortless, and a lot more hygienic :)
 
-## 🎯 Features (Planned)
+## 🎯 Features
 - ✅ Detect hand gestures via webcam to control playback
-- ✅ Recognize voice commands like "pause", "play", "skip", and more!
 - ✅ Automate interaction with Brightspace lecture recordings (MyCourses)
-- 🔜 Future: YouTube support
+- ✅ Automate interaction with YouTube videos
 - 🔜 Future: Netflix support
+- 🔜 Future: Recognize voice commands like "pause", "play", "skip", and more!
 - 🔜 Future: Custom gesture and voice control profiles
 - 🔜 Future: Browser extension
 
-## 🛠️ Tech Stack (Planned)
+## 🛠️ Tech Stack
 - Python
 - OpenCV & MediaPipe (gesture detection)
-- SpeechRecognition / Whisper (voice commands)
-- PyAutoGUI (to automate keyboard controls)
+- SpeechRecognition / Whisper (voice commands) (Planned)
+- PyAutoGUI (to automate keyboard controls and platform detection)
 
 ## 📽️ Demo
 Coming soon...
 
 ## 📌 Status
-Currently in development. Stay tuned!
+Hand gestures up and running for Brightspace Lecture Recordings and YouTube Videos. Custom User features and speech recognition coming soon!
