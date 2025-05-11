@@ -6,6 +6,6 @@ def get_platform():
     if active_window:
         if "Lecture Recordings" in active_window.title:
             return "Brightspace"
-        elif "Youtube" in active_window.title:
+        elif "YouTube" in active_window.title:
             return "Youtube"
     return "unknown"
