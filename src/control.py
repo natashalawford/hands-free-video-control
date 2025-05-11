@@ -1,6 +1,7 @@
 # Triggers keyboard and mouse events
 
 import pyautogui
+from platform_detector import get_platform
 
 def pause_play():
     pyautogui.press('space')
@@ -12,10 +13,16 @@ def skip_backward():
     pyautogui.press('left')
 
 def speed_up():
-    pyautogui.press('+')
+    if get_platform() == "Brightspace":
+        pyautogui.press('+')
+    elif get_platform() == "Youtube":
+        pyautogui.press('>')
 
 def slow_down():
-    pyautogui.press('_')
+    if get_platform() == "Brightspace":
+        pyautogui.press('_')
+    elif get_platform() == "Youtube":
+        pyautogui.press('<')
 
 def volume_up():
     pyautogui.press('up')
