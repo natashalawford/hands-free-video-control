@@ -1,9 +1,9 @@
 import pyautogui
 import threading
 import time
-# Load the image for the skip ad button
 import os
 
+# Load the image of the skip ad button
 skip_ad_fullscreen = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'assets', 'skip_ad.png'))
 
 # Specify where the button usually appears (bottom right-ish), might need to be adjusted
@@ -27,6 +27,4 @@ def skip_ad_monitor():
 
         time.sleep(2)  # Check every 2 seconds
 
-
-skip_ad_monitor()
 

@@ -5,6 +5,8 @@ import time
 import cv2
 import mediapipe as mp
 import gesture_controller
+import threading
+from ad_skipper import skip_ad_monitor
 
 # CONSTANTS
 COOLDOWN_TIME = 2  # seconds between gestures, prevents multiple triggers
@@ -95,4 +97,9 @@ def run_webcam():
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
+
+    ad_skipper_thread = threading.Thread(target=skip_ad_monitor, daemon=True)
+    ad_skipper_thread.start()
+    
     run_webcam()
+    
