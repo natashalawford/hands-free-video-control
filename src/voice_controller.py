@@ -1,6 +1,8 @@
 # Handles voice recognition
 
 import speech_recognition as sr
+from control import pause_play, skip_backward, skip_forward, speed_up, slow_down,\
+    volume_up, volume_down
 
 r = sr.Recognizer()
 
@@ -16,30 +18,27 @@ while True:
             command = command.lower()
 
             # Check for specific commands and trigger actions
-            if "pause" in command:
-                print("Pausing...")
-                # Trigger pause action here
+            if "pause" in command or "play" in command:
+                print("Pausing/Playing...")
+                pause_play()
             elif "faster" in command:
                 print("Speeding up...")
-                # Trigger speed up action here
+                speed_up()
             elif "slower" in command:
                 print("Slowing down...")
-                # Trigger slow down action here
-            elif "play" in command:
-                print("Playing...")
-                # Trigger play action here
+                slow_down()
             elif "skip" in command:
                 print("Skipping...")
-                # Trigger skip action here
+                skip_forward()
             elif "rewind" in command:
                 print("Rewinding...")
-                # Trigger rewind action here
+                skip_backward()
             elif "volume up" in command:
                 print("Volume up...")
-                # Trigger volume up action here
+                volume_up()
             elif "volume down" in command:
                 print("Volume down...")
-                # Trigger volume down action here
+                volume_down()
 
     except Exception as e:
         print(f"Could not request results; {e}")
