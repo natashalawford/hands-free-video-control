@@ -23,8 +23,7 @@ def skip_ad_monitor():
         except pyautogui.ImageNotFoundException:
             print("⏳ No ad to skip right now.")
         except Exception as e:
-            print("⚠️ Unexpected error in ad skipper:", e)
-
+            print(f"Error: {e}")
         time.sleep(2)  # Check every 2 seconds
 
 
