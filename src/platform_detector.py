@@ -8,4 +8,6 @@ def get_platform():
             return "Brightspace"
         elif "YouTube" in active_window.title:
             return "Youtube"
+        elif "Netflix" in active_window.title:
+            return "Netflix"
     return "unknown"

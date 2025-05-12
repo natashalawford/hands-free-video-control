@@ -15,13 +15,13 @@ def skip_backward():
 def speed_up():
     if get_platform() == "Brightspace":
         pyautogui.press('+')
-    elif get_platform() == "Youtube":
+    elif get_platform() == "Youtube" or get_platform() == "Netflix":
         pyautogui.press('>')
 
 def slow_down():
     if get_platform() == "Brightspace":
         pyautogui.press('_')
-    elif get_platform() == "Youtube":
+    elif get_platform() == "Youtube" or get_platform() == "Netflix":
         pyautogui.press('<')
 
 def volume_up():
