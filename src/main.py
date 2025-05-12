@@ -7,6 +7,7 @@ import mediapipe as mp
 import gesture_controller
 import threading
 from ad_skipper import skip_ad_monitor
+from voice_controller import voice_control
 
 # CONSTANTS
 COOLDOWN_TIME = 2  # seconds between gestures, prevents multiple triggers
@@ -100,6 +101,9 @@ if __name__ == "__main__":
 
     ad_skipper_thread = threading.Thread(target=skip_ad_monitor, daemon=True)
     ad_skipper_thread.start()
-    
+
+    voice_thread = threading.Thread(target=voice_control, daemon=True)
+    voice_thread.start()
+
     run_webcam()
     
