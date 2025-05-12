@@ -12,8 +12,8 @@ So I decided to build a hands-free controller that lets me (and other students) 
 ## 🎯 Features
 - ✅ Detect hand gestures via webcam to control playback
 - ✅ Automate interaction with Brightspace lecture recordings (MyCourses)
-- ✅ Automate interaction with YouTube videos
-- 🔜 Future: Netflix support
+- ✅ Automate interaction with YouTube videos and Netflix
+- ✅ Automatically skips YouTube Ads
 - 🔜 Future: Recognize voice commands like "pause", "play", "skip", and more!
 - 🔜 Future: Custom gesture and voice control profiles
 - 🔜 Future: Browser extension
@@ -28,4 +28,4 @@ So I decided to build a hands-free controller that lets me (and other students) 
 Coming soon...
 
 ## 📌 Status
-Hand gestures up and running for Brightspace Lecture Recordings and YouTube Videos. Custom User features and speech recognition coming soon!
+Hand gestures up and running for Brightspace Lecture Recordings, YouTube Videos, and Netflix. Custom User features and speech recognition coming soon!
