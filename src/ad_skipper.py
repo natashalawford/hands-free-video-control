@@ -21,7 +21,7 @@ def skip_ad_monitor():
                 pyautogui.click(pyautogui.center(location))
                 time.sleep(1)  # Give it time to disappear
         except pyautogui.ImageNotFoundException:
-            print("⏳ No ad to skip right now.")
+            pass # Silently ignore if the image is not found
         except Exception as e:
             print(f"Error: {e}")
         time.sleep(2)  # Check every 2 seconds

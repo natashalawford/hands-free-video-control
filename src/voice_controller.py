@@ -10,7 +10,7 @@ def voice_control():
     while True:
         try:
             with sr.Microphone() as source:
-                print("Listening...")
+                # print("Listening...")
                 audio = r.listen(source)
 
                 # Recognize speech using Google Web Speech API
@@ -42,5 +42,5 @@ def voice_control():
                     volume_down()
 
         except Exception as e:
-            print(f"Could not request results; {e}")
+            pass # Ignore if the command is not recognized
 
