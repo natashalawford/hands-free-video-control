@@ -16,7 +16,8 @@ So I decided to build a hands-free controller that lets me (and other students) 
 - ✅ Automatically skips YouTube Ads
 - ✅ Recognize voice commands like "pause", "play", "skip", and more!
 - 🔜 Future: Custom gesture and voice control profiles
-- 🔜 Future: Browser extension
+- 🔜 Future: User menu to toggle settings and get help
+- 🔜 Future: Executable Application
 
 ## 🛠️ Tech Stack
 - Python
