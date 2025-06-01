@@ -26,7 +26,7 @@ So I decided to build a hands-free controller that lets me (and other students) 
 - PyAutoGUI (to automate keyboard controls and platform detection)
 
 ## 📽️ Demo
-Coming soon...
+The first demo video has been completed! Message me, and I can send the link your way :) 
 
 ## 📌 Status
 Hand gestures and speech recognition up and running for Brightspace Lecture Recordings, YouTube Videos, and Netflix. Custom User features coming soon!
